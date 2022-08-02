@@ -1,0 +1,46 @@
+{% extends 'templates/template.twig' %}
+
+{% block body %}
+
+{% if menubarre == false %}
+
+  {% include 'sections/forum-menu-barre.twig' %}
+
+{% endif %}
+
+<div class="col-lg-10">
+
+  <div class="card bg-dark text-white mb-4">
+    <img src="http://slim.opty.site/images/banniere.jpg" class="card-img" alt="...">
+    <div class="card-img-overlay">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <p class="card-text">Last updated 3 mins ago</p>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3">
+    {% for sujet in sujets|slice(0, 15) %}
+    <div class="col mb-4 ">
+        <div class="card shadow-sm p-3 mb-4 bg-white rounded">
+          <a href="{{ path_for('forum') }}/{{ sujet.categorie.cate_label|lower|striptags|replace({' ': ''}) }}/{{ sujet.sujet_title|lower|replace({' ': '-'}) }}_{{ sujet.id }}" class="card-body nav-link" style="color:rgb(110, 110, 110);">
+            <h5 class="card-title">{{ sujet.sujet_title|truncate(80, true) }}</h5>
+            <p class="card-text">{{ sujet.sujet_text|truncate(170, true) }}</p>
+            <p class="card-text"><b>{{ sujet.membre.memb_nom }} {{ sujet.membre.memb_prenom }}</b> <small class="text-muted">publié le {{ sujet.created_at }}</small></p>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if username %}
+    <div class="row row-cols-1 row-cols-md-3">
+      <div class="col mb-4 "> 
+        <a href="{{ path_for('forum') }}/createsujet"><button class="btn btn-primary">Crée un sujet</button></a>
+      </div>
+    </div>
+  {% endif %}
+
+</div>
+
+{% endblock %}

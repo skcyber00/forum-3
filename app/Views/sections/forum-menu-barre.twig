@@ -1,0 +1,10 @@
+<div class="col-lg-2">
+    <div class="shadow-sm p-3 mb-5 bg-white rounded">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Categorie</a>
+            {% for categorie in categories %}
+                <a class="nav-link"  href="{{ path_for('forum') }}/{{ categorie.cate_label|lower|striptags|replace({' ': ''}) }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">{{ categorie.cate_label }}</a>
+            {% endfor %}
+        </div>    
+    </div>
+</div>

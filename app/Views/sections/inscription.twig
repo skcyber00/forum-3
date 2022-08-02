@@ -1,0 +1,76 @@
+{% extends 'templates/template.twig' %}
+
+{% block body %}
+
+  <div class="container">
+    <div class="col-12 pb-4 mb-md-3">
+
+        {% include 'layout/response.twig' %}
+
+        <form action="{{ path_for('inscription') }}" method="POST">
+
+          {{ csrf() }}
+
+          <div class="form-group{% if flash.errors.email %} has-error{% endif %}">
+            <label for="email">Adresse Email</label>
+            <input type="email" name="email" class="form-control" id="email" value="{{ old.email }}">
+            {% if flash.errors.email %}
+              <span class="help-block text-danger">{{ flash.errors.email }}</span>
+            {% endif %}
+            <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre e-mail avec qui que ce soit.</small>
+          </div>
+          <div class="form-group{% if flash.errors.name %} has-error{% endif %}">
+            <label for="name">Nom</label>
+            <input type="text" name="name" class="form-control" id="name" value="{{ old.name }}">
+            {% if flash.errors.name %}
+              <span class="help-block text-danger">{{ flash.errors.name }}</span>
+            {% endif %}
+          </div>
+          <div class="form-group{% if flash.errors.firstname %} has-error{% endif %}">
+            <label for="firstname">Prénom</label>
+            <input type="text" name="firstname" class="form-control" id="firstname" value="{{ old.firstname }}">
+            {% if flash.errors.firstname %}
+              <span class="help-block text-danger">{{ flash.errors.firstname }}</span>
+            {% endif %}
+          </div>
+          <div class="form-group{% if flash.errors.password %} has-error{% endif %}">
+            <label for="password">Mot de passe</label>
+            <input type="password" class="form-control" name="password" id="password" value="{{ old.password }}">
+            {% if flash.errors.password %}
+              <span class="help-block text-danger">{{ flash.errors.password }}</span>
+            {% endif %}
+          </div>
+          <button type="submit" class="btn btn-primary">M'inscrire</button>
+
+        </form>
+
+    </div>
+
+    <div class="col-12 pb-4 mb-md-3">
+      <div class="row">
+        <div class="col-4">
+          <h4>This is a longer</h4>
+          <p>This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+            This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+            This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+          </p>
+        </div>
+        <div class="col-4">
+          <h4>This is a longer</h4>
+          <p>This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+            This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+            This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+          </p>
+        </div>
+        <div class="col-4">
+          <h4>This is a longer</h4>
+          <p>This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+            This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+            This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

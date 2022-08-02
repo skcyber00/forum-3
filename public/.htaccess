@@ -1,0 +1,7 @@
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+#RewriteRule ^([a-z0-9]+)$ index.php?url=forum
+#RewriteRule ^forum/(.+)_([0-9]+)$ index.php?url=$1&id=$2

@@ -1,0 +1,22 @@
+{% extends 'templates/template.twig' %}
+
+{% block body %}
+
+{% include 'sections/profil-menu.twig' %}
+
+<div class="col-lg-9">
+    <div class="card shadow-sm p-3 mb-3 bg-white rounded">
+        <div class="card-body nav-link" style="color:rgb(110, 110, 110);">
+            <h4 class="card-title">Mes informations</h4>
+            {% for membres in membre %}
+                <p class="card-text">Nom & prénom : {{ membres.memb_nom }} {{ membres.memb_prenom }}</p>
+                <p class="card-text">Email : {{ membres.memb_email }}{{ sujet.created_at }}</small></p>
+                <p class="card-text">Crée le : {{ membres.created_at|date("d/m/Y H:i") }}</small></p>
+            {% endfor %}
+        </div>
+    </div>
+
+    </div>
+</div>
+
+{% endblock %}

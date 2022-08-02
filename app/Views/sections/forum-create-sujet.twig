@@ -1,0 +1,74 @@
+{% extends 'templates/template.twig' %}
+
+{% block body %}
+
+{% if menubarre == false %}
+
+  {% include 'sections/forum-menu-barre.twig' %}
+
+{% endif %}
+
+<div class="col-lg-10">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path_for('forum') }}">forum</a></li>
+            <li class="breadcrumb-item active">createsujet</li>
+        </ol>
+    </nav>
+
+  <div class="row">
+    {% for sujet in sujets|slice(0, 1) %}
+        <div class="col-lg-12">
+            {% if useremail %}
+               
+                {% include 'layout/response.twig' %}
+
+                <form action="{{ path_for('forum') }}/createsujet" method="POST">
+                  {{ csrf() }}
+                  <input type="hidden" class="form-control" name="userid" id="userid" value="{{ userid }}">
+                  <div class="form-group{% if flash.errors.email %} has-error{% endif %}">
+                      <label for="email">Votre email</label>
+                      <input type="email" class="form-control" name="email" id="email" value="{{ useremail }}" disabled>
+                      {% if flash.errors.email %}
+                          <span class="help-block text-danger">{{ flash.errors.email }}</span>
+                      {% endif %}
+                  </div>
+                  <div class="form-group{% if flash.errors.categorie %} has-error{% endif %}">
+                    <label for="categorie">Catégorie</label>
+                    <select class="form-control" name="categorie" id="categorie">
+                        <option value="">--Choisir catégorie--</option>
+                        {% for categorie in categories %}
+                            <option value="{{ categorie.cate_label|lower|striptags|replace({' ': ''}) }}">{{ categorie.cate_label }}</option>
+                        {% endfor %}
+                    </select>
+                      {% if flash.errors.categorie %}
+                        <span class="help-block text-danger">{{ flash.errors.categorie }}</span>
+                      {% endif %}
+                  </div>
+                  <div class="form-group{% if flash.errors.title %} has-error{% endif %}">
+                      <label for="title">Titre</label>
+                      <textarea type="text" class="form-control" rows="2" name="title" id="title" required>{{ old.title }}</textarea>
+                      {% if flash.errors.title %}
+                        <span class="help-block text-danger">{{ flash.errors.title }}</span>
+                      {% endif %}
+                  </div>
+                  <div class="form-group{% if flash.errors.content %} has-error{% endif %}">
+                      <label for="content">Contenu</label>
+                      <textarea type="text" class="form-control" rows="8" name="content" id="content" required>{{ old.content }}</textarea>
+                      {% if flash.errors.content %}
+                        <span class="help-block text-danger">{{ flash.errors.content }}</span>
+                      {% endif %}
+                  </div>
+                  <div class="form-group">
+                      <input type="submit" class="btn btn-primary" value="Créer/Poster">
+                  </div>
+                </form>
+            {% endif %}
+        </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock %}

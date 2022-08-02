@@ -1,0 +1,25 @@
+<div class="col-lg-3">
+  <div class="row justify-content-md-end">
+        <div class="col-lg-12 ">
+           <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                {% for membres in membre %}
+                    <h4 class="card-text"><i class='fas fa-user-alt' style='font-size:24px'> {{ membres.memb_nom }} {{ membres.memb_prenom }}</i></h4>
+                {% endfor %}
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="{{ path_for('profil') }}/{% for membres in membre %}{{ membres.id }}{% endfor %}" role="tab" aria-controls="v-pills-home" aria-selected="true">Menu</a>
+                    
+                    {% if menubarre %}
+                        <a class="nav-link"  href="{{ path_for('profil') }}/{% for membres in membre %}{{ membres.id }}{% endfor %}/profil" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profil</a>
+                        <a class="nav-link"  href="{{ path_for('profil') }}/{% for membres in membre %}{{ membres.id }}{% endfor %}/sujets" role="tab" aria-controls="v-pills-profile" aria-selected="false">Mes sujets</a>
+                        <a class="nav-link"  href="{{ path_for('profil') }}/{% for membres in membre %}{{ membres.id }}{% endfor %}/notifications" role="tab" aria-controls="v-pills-profile" aria-selected="false">Notifications</a>
+                        <a class="nav-link"  href="{{ path_for('profil') }}/{% for membres in membre %}{{ membres.id }}{% endfor %}/messageries" role="tab" aria-controls="v-pills-profile" aria-selected="false">Messageries</a>
+                    {% else %}
+                        <a class="nav-link"  href="{{ path_for('profil') }}/{% for membres in membre %}{{ membres.id }}{% endfor %}/profil" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profil</a>
+                        <a class="nav-link"  href="{{ path_for('profil') }}/{% for membres in membre %}{{ membres.id }}{% endfor %}/sujets" role="tab" aria-controls="v-pills-profile" aria-selected="false">Sujets</a>
+                        <a class="nav-link"  href="{{ path_for('profil') }}/{% for membres in membre %}{{ membres.id }}{% endfor %}/messagerie/{% for idgroups in idgroup %}{{ idgroups.mess_id }}{% endfor %}" role="tab" aria-controls="v-pills-profile" aria-selected="false">Ecrire message</a>
+                   {% endif %}
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>

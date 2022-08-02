@@ -1,0 +1,78 @@
+{% extends 'templates/template.twig' %}
+
+{% block body %}
+
+{% if menubarre == false %}
+
+  {% include 'sections/forum-menu-barre.twig' %}
+
+{% endif %}
+
+<div class="col-lg-10">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path_for('forum') }}">forum</a></li>
+            <li class="breadcrumb-item active">{{ title }}</li>
+        </ol>
+    </nav>
+
+  <div class="row justify-content-md-end">
+    {% for sujet in sujets|slice(0, 1) %}
+        <div class="col-lg-12 ">
+            <div class="card shadow-sm p-3 mb-3 bg-white rounded">
+                <div class="card-body nav-link" style="color:rgb(110, 110, 110);">
+                    <h5 class="card-title">{{ sujet.sujet_title }}</h5>
+                    <p class="card-text">{{ sujet.sujet_text }}</p>
+                    <p class="card-text"><a href="{{ path_for('profil') }}/{{ sujet.membre.id }}"><b>{{ sujet.membre.memb_nom }} {{ sujet.membre.memb_prenom }}</b></a> <small class="text-muted">publié le {{ sujet.created_at }}</small></p>
+                </div>
+            </div>
+        </div>
+
+         {% for sujetresp in sujetsresp %}
+            <div class="col-lg-11">
+                <div class="card shadow-sm p-3 mb-3 bg-white rounded">
+                    <div class="card-body nav-link" style="color:rgb(110, 110, 110);">
+                        <p class="card-text">{{ sujetresp.resp_content }}</p>
+                        <p class="card-text"><a href="{{ path_for('profil') }}/{{ sujetresp.membre.id }}"><b>{{ sujetresp.membre.memb_nom }} {{ sujetresp.membre.memb_prenom }}</b></a> <small class="text-muted">publié le {{ sujetresp.created_at }}</small></p>
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+    </div>
+
+    <div class="row justify-content-md-between">
+        <div class="col-lg-6">
+            {% if useremail %}
+
+                {% include 'layout/response.twig' %}
+
+                <form action="{{ path_for('forum') }}/{{ sujet.categorie.cate_label|lower|striptags|replace({' ': ''}) }}/{{ title }}_{{ sujet.id }}" method="POST">
+                  {{ csrf() }}
+                  <input type="hidden" class="form-control" name="userid" id="userid" value="{{ userid }}">
+                  <div class="form-group{% if flash.errors.email %} has-error{% endif %}">
+                      <label for="email">Votre email</label>
+                      <input type="email" class="form-control" name="email" id="email" value="{{ useremail }}" disabled>
+                      {% if flash.errors.email %}
+                          <span class="help-block text-danger">{{ flash.errors.email }}</span>
+                      {% endif %}
+                  </div>
+                  <div class="form-group{% if flash.errors.content %} has-error{% endif %}">
+                      <label for="content">Votre réponse</label>
+                      <textarea type="text" class="form-control" rows="5" name="content" id="content" required>{{ old.content }}</textarea>
+                      {% if flash.errors.content %}
+                        <span class="help-block text-danger">{{ flash.errors.content }}</span>
+                      {% endif %}
+                  </div>
+                  <div class="form-group">
+                      <input type="submit" class="btn btn-primary" value="Répondre">
+                  </div>
+                </form>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

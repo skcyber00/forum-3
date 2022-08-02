@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    {% include 'layout/header.twig' %}
+
+    <body class="loading">
+
+        {% include 'layout/nav.twig' %}
+
+        <main role="main" class="container-fluid">
+            <div class="wrapper">
+                <div class="container-fluid">
+
+                    <h1 class="text-center text-monospace font-weight-bolder" style="padding-top: 10px; padding-bottom: 30px; font-size: 50px;">{{ h1|capitalize }}</h1>
+
+                    <div class="row">
+
+                        {% block body %}  {% endblock %}
+
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        {% include 'layout/footer.twig' %}
+        
+    </body>
+
+</html>

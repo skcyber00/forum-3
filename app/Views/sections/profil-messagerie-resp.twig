@@ -1,0 +1,40 @@
+{% extends 'templates/template.twig' %}
+
+{% block body %}
+
+{% include 'sections/profil-menu.twig' %}
+
+<div class="col-lg-9">
+
+    <div class="row justify-content-md{% if userid == messagerieresps.membre_id %}-end{% endif %}">
+        <div class="col-lg-9">
+            {% for messagerieresps in messagerieresp|slice(0, 20) %}
+                <div class="card shadow-sm p-3 mb-3 bg-white rounded">
+                    <div class="card-body nav-link" style="color:rgb(110, 110, 110);">
+                        <p class="card-text">{{ messagerieresps.mess_content }}</p>
+                        <p class="card-text"><a href="{{ path_for('profil') }}/{{ sujetresp.membre.id }}"><b>{{ messagerieresps.membre.memb_nom }} {{ messagerieresps.membre.memb_prenom }}</b></a> <small class="text-muted">publié le {{ sujetresp.created_at }}</small></p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <form action="{{ path_for('profil') }}/{% for membres in membre %}{{ membres.id }}{% endfor %}/messagerie/{{ idgroup }}" method="POST">
+
+        {{ csrf() }}
+
+        <div class="form-group{% if flash.errors.content %} has-error{% endif %}">
+            <label for="content">Votre message</label>
+            <textarea type="text" class="form-control" rows="6" name="content" id="content">{{ old.content }}</textarea>
+            {% if flash.errors.content %}
+                <span class="help-block text-danger">{{ flash.errors.content }}</span>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Envoyer">
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}
